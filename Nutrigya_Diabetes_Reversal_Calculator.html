@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrigya Diabetes Reversal Score</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; max-width: 600px; }
+    label { font-weight: bold; display: block; margin-top: 15px; }
+    select, input[type=number], input[type=text] { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+    .result { margin-top: 30px; font-size: 18px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Nutrigya Diabetes Reversal Score Calculator</h2>
+
+  <label for="duration">Duration of Diabetes</label>
+  <select id="duration">
+    <option value="3">≤ 2 years</option>
+    <option value="2">3–5 years</option>
+    <option value="1">6–8 years</option>
+    <option value="0">> 8 years</option>
+  </select>
+
+  <label for="weightLoss">Weight Loss Achieved (%)</label>
+  <select id="weightLoss">
+    <option value="3">≥ 15%</option>
+    <option value="2">10–14%</option>
+    <option value="1">5–9%</option>
+    <option value="0">< 5%</option>
+  </select>
+
+  <label for="hba1c">Recent HbA1c (%)</label>
+  <select id="hba1c">
+    <option value="3">< 6.5%</option>
+    <option value="2">6.5–7.5%</option>
+    <option value="1">7.5–8.5%</option>
+    <option value="0">> 8.5%</option>
+  </select>
+
+  <label for="medication">Current Medications</label>
+  <select id="medication">
+    <option value="3">None</option>
+    <option value="2">Metformin only</option>
+    <option value="1">Oral combination</option>
+    <option value="0">Insulin</option>
+  </select>
+
+  <label for="bmi">BMI</label>
+  <select id="bmi">
+    <option value="3">25–32</option>
+    <option value="2">32–37</option>
+    <option value="1">>37 or <25</option>
+  </select>
+
+  <label for="cpeptide">C-Peptide Level (ng/mL)</label>
+  <select id="cpeptide">
+    <option value="3">>1.2</option>
+    <option value="2">0.8–1.2</option>
+    <option value="1">0.5–0.8</option>
+    <option value="0">< 0.5</option>
+  </select>
+
+  <label for="activity">Physical Activity Level</label>
+  <select id="activity">
+    <option value="2">Very Active</option>
+    <option value="1">Moderate</option>
+    <option value="0">Sedentary</option>
+  </select>
+
+  <label for="motivation">Motivation Level</label>
+  <select id="motivation">
+    <option value="1">High</option>
+    <option value="0">Low</option>
+  </select>
+
+  <button onclick="calculateScore()">Calculate Score</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculateScore() {
+      const total = [
+        'duration', 'weightLoss', 'hba1c', 'medication', 'bmi',
+        'cpeptide', 'activity', 'motivation'
+      ].reduce((sum, id) => sum + parseInt(document.getElementById(id).value), 0);
+
+      let interpretation = '';
+      if (total >= 16) interpretation = '🌟 Likely Reversal: Normoglycemia achievable with lifestyle.';
+      else if (total >= 12) interpretation = '✅ Strong Remission Candidate: Consider structured plan.';
+      else if (total >= 8) interpretation = '🟡 Partial Response: May reduce medications, needs monitoring.';
+      else interpretation = '🔴 Unlikely Remission: Focus on glycemic control with medical support.';
+
+      document.getElementById('result').innerText = `Your Score: ${total}/18\n${interpretation}`;
+    }
+  </script>
+</body>
+</html>
